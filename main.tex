@@ -1,0 +1,30 @@
+\documentclass[letterpaper,landscape]{article}
+
+\input{structure/libs.tex}
+\input{structure/colors.tex}
+\input{structure/tikzcards.tex}
+\input{cards/card-types.tex}
+\input{cards/card-abilities.tex}
+
+\title{Avarice Card Game}
+
+\newcommand{\junk}{
+        	Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis.
+}
+
+\begin{document}
+	\sffamily
+	\pagestyle{empty}
+    \input{instructions}
+    \pagebreak
+    \section{Starting Cards}
+    \begin{multicols}{4}
+    \setlength{\columnsep}{1mm}
+    \include{cards/starting}
+    \end{multicols}
+    \section{Deck}
+    \begin{multicols}{4}
+    \setlength{\columnsep}{1mm}
+    \include{cards/deck}
+    \end{multicols}
+\end{document}

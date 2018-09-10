@@ -1,0 +1,206 @@
+% Commands for creating cards
+
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+\renewcommand{\baselinestretch}{0.75}
+
+\pgfmathsetmacro{\cardwidth}{6.3}
+\pgfmathsetmacro{\cardheight}{8.8}
+\pgfmathsetmacro{\imagewidth}{\cardwidth}
+\pgfmathsetmacro{\imageheight}{0.75*\cardheight}
+\pgfmathsetmacro{\stripwidth}{0.7}
+\pgfmathsetmacro{\strippadding}{0.2}
+\pgfmathsetmacro{\textpadding}{0.1}
+\pgfmathsetmacro{\titley}{\cardheight-0.5}
+\pgfmathsetmacro{\DescriptionWidth}{(\cardwidth-2*\strippadding-2*\textpadding)*1cm}
+\pgfmathsetmacro{\DescriptionTextWidth}{(\cardwidth-2*\strippadding-\stripwidth-\textpadding)*1cm}
+
+
+\def\shapeCard{
+	(0,0)
+    rectangle (\cardwidth, \cardheight)
+}
+
+\def\shapeLeftStripShort{
+	(\strippadding, \cardheight+1)
+    rectangle (\strippadding+\stripwidth, \cardheight-1)
+}
+
+\def\shapeLeftStripShortBelow{
+	(\strippadding, \cardheight+1)
+    rectangle (\strippadding+\stripwidth, \cardheight-1.5)
+}
+
+\def\shapeRightStripShort{
+	(\cardwidth-\stripwidth-\strippadding,\cardheight+1)
+    rectangle (\cardwidth-\strippadding, \cardheight-1)
+}
+
+\def\shapeTitleArea{
+	(2*\strippadding+\stripwidth, \cardheight)
+    rectangle (\cardwidth-2*\strippadding-\stripwidth, \cardheight-1)
+}
+
+\def\shapeContentArea{
+	(\strippadding, 0.5*\cardheight)
+    rectangle (\cardwidth-\strippadding, \strippadding)
+}
+
+\def\shapeSetBuble{
+	(\cardwidth-\strippadding-0.1, \strippadding+0.1)
+    circle (0.35)
+}
+
+\tikzset{
+    cardcorners/.style={
+        rounded corners=0.2cm
+    },
+    elementcorners/.style={
+        rounded corners=0.1cm
+    },
+    stripshadow/.style={
+        drop shadow={
+            opacity=.5,
+            color=black
+        }
+    },
+    strip/.style={
+        elementcorners,
+    },
+    cardimage/.style={
+        path picture={
+            \node[below=-1.5mm] at (0.5*\cardwidth,\cardheight) {
+                \includegraphics[width=\imagewidth cm]{#1}
+            };
+        }
+    },
+}
+
+% Card
+\newcommand{\Card}[2]{
+	\unitlength=1mm
+    \begin{tikzpicture}[x=1cm, y=1cm]
+    	\draw[cardcorners, cardimage=#1] \shapeCard;
+    	#2
+    	\draw[lightgray, cardcorners] \shapeCard;
+    \end{tikzpicture}
+}
+
+\newcommand{\carddebug}{
+    \draw [step=1,help lines] (0,0) grid (\cardwidth,\cardheight);
+}
+
+% Cost
+\newcommand{\CardCost}[1]{
+    \begin{scope}[even odd rule]
+        \clip[cardcorners] \shapeCard;
+        \fill[strip, CostBgColor] \shapeRightStripShort;
+    \end{scope}
+    \node at (\cardwidth-0.5*\stripwidth-\strippadding, \titley-0.1) {
+    	\color{black}
+        #1
+    };
+}
+
+% Power
+\newcommand{\CardPower}[1]{
+    \begin{scope}[even odd rule]
+        \clip[cardcorners] \shapeCard;
+        \fill[strip, CostBgColor] \shapeRightStripShort;
+    \end{scope}
+    \node at (\cardwidth-0.5*\stripwidth-\strippadding, \titley-0.1) {
+    	\color{black}
+        #1
+    };
+}
+
+% Starting Equipment
+\newcommand{\StartingEquipment}{
+	\begin{scope}[even odd rule]
+        \clip[cardcorners] \shapeCard;
+        \fill[strip, black] \shapeLeftStripShortBelow;
+    \end{scope}
+    \node at (0.5*\stripwidth+\strippadding, \titley-0.75) {
+    	\color{white}
+        \small
+        \faUser
+    };
+}
+
+% Set
+\newcommand{\CardSet}[1]{
+    \begin{scope}[even odd rule]
+        \clip[cardcorners] \shapeCard;
+        \fill[strip, gray] \shapeSetBuble;
+    \end{scope}
+    \node at (\cardwidth-\strippadding-0.1, \strippadding+0.1) {
+    	\color{white}
+        #1
+    };
+}
+
+% Cost
+\newcommand{\CardType}[2]{
+    \begin{scope}[even odd rule]
+        \clip[cardcorners] \shapeCard;
+        \fill[strip, #1] \shapeLeftStripShort;
+    \end{scope}
+    \node at (0.5*\stripwidth+\strippadding, \titley-0.1) {
+        #2
+    };
+}
+
+% Title
+\newcommand{\CardTitle}[1]{
+    \fill[elementcorners, TitleBgColor, opacity=.85] \shapeTitleArea;
+    \node[text width=3.75cm] at (0.5*\cardwidth,\titley) {
+        \begin{center}
+            \color{white}\normalsize #1
+        \end{center}
+    };
+}
+
+% Content
+\newcommand{\CardContent}[1]{
+    \begin{scope}[even odd rule]
+        \clip[cardcorners] \shapeCard;
+        \fill[elementcorners, ContentBgColor] \shapeContentArea;
+    \end{scope}
+    \node[below right, text width=\DescriptionWidth]
+    at (\strippadding+\textpadding, 0.5*\cardheight-\textpadding) {
+        {
+        	\scriptsize
+            \par
+            #1
+        }
+    };
+}
+
+% Content
+\newcommand{\CardFlavorText}[1]{
+    \node[below right, text width=\DescriptionWidth]
+    at (\strippadding + \textpadding, 1.5) {
+        {
+        	\tiny
+            \par
+            #1
+        }
+    };
+}
+
+% Ability
+\newcommand{\Ability}[3] {
+	\parbox{4mm}{
+    	{\normalsize #1 \hfill}
+    }
+	\parbox{50mm}{
+    	#2
+        {\tiny #3}
+    } \\[2mm]
+}
+
+% Repeat
+\newcommand{\Repeat}[2]{
+    \foreach \n in {1,...,#1}{#2}
+}
+

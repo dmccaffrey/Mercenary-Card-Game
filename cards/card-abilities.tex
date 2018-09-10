@@ -1,0 +1,109 @@
+\newcommand{\CycleAction}[1]{
+    \Ability
+    	{\faRefresh}
+    	{Re-equip #1}
+        {(Discard up to #1 cards to draw that many cards)}
+}
+\newcommand{\AttackAction}[1]{
+    \Ability
+    	{\faCrosshairs}
+    	{Attack: #1}
+        {(Adds #1 to a mercenaries combat strength)}
+}
+\newcommand{\ConsumeAction}[1]{
+    \Ability
+    	{\faFlask}
+    	{Consume: #1}
+        {(Spend this card to use this ability)}
+}
+\newcommand{\DrawAction}[1]{
+    \Ability
+    	{\faShareSquareO}
+    	{Draw #1}
+        {(Draw #1 cards from your deck)}
+}
+\newcommand{\CombatAction}[1]{
+    \Ability
+    	{\faShield}
+    	{Combat #1}
+        {(Combat strength of #1)}
+}
+\newcommand{\LootAction}[2]{
+    \Ability
+    	{\faShoppingCart}
+    	{Loot #1/#2}
+        {(Look at the top #1 cards of the hall stack stack and keep #2)}
+}
+\newcommand{\StealAction}[1]{
+    \Ability
+    	{\faLowVision}
+    	{Steal #1}
+        {(You may take the bottom card from the hall stack)}
+}
+\newcommand{\GuideAction}[1]{
+    \Ability
+    	{\faMapO}
+    	{Guide #1}
+        {(You may skip up to the first #1 cards from any area stack when looting)}
+}
+\newcommand{\BankrollAction}[1]{
+    \Ability
+    	{\faCreditCard}
+    	{Bankroll #1}
+        {(Produces #1 gold)}
+}
+\newcommand{\DropAction}[1]{
+    \Ability
+    	{\faCartPlus}
+    	{Drops #1}
+        {(When defeated you may choose to acquire one copy of the listed card(s).)}
+}
+\newcommand{\BuyAction}[1]{
+    \Ability
+    	{\faShoppingBasket}
+    	{Buy #1}
+        {(You may purchase a spent card at a discount of #1, not to go below 1)}
+}
+\newcommand{\AutomaticAction}[1]{
+    \Ability
+    	{\faExclamation}
+    	{Event: #1}
+        {}
+}
+
+\newcommand{\DesertAction}[1]{
+    \Ability
+    	{\faChainBroken}
+    	{Desertion: #1}
+        {}
+}
+\newcommand{\StackAbility}[1]{
+    \Ability
+    	{\faClone}
+    	{Stacking: #1}
+    	{}
+}
+\newcommand{\InspireAbility}[1]{
+    \Ability
+    	{\faClone}
+    	{Inspire: #1}
+    	{}
+}
+\newcommand{\FortifyAction}[1]{
+    \Ability
+    	{\faShield}
+    	{Fortify: #1}
+        {}
+}
+\newcommand{\CancelAction}[1]{
+    \Ability
+    	{\faRemove}
+    	{#1}
+        {}
+}
+\newcommand{\KillAction}[1]{
+    \Ability
+    	{\faUserTimes}
+    	{Kill: #1}
+        {}
+}
